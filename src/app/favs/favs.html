@@ -1,0 +1,64 @@
+<div class="list-container">
+
+    <header class="list-header">
+        <h1 class="page-title">Mi Colección</h1>
+
+        <div class="category-tabs">
+
+            <button class="tab-btn watching" [class.active]="selectedCategory === 'watching'"
+                (click)="selectCategory('watching')">
+                <span class="label">Viendo</span>
+                <span class="count">{{ countWatching }}</span>
+            </button>
+
+            <button class="tab-btn favorites" [class.active]="selectedCategory === 'favorites'"
+                (click)="selectCategory('favorites')">
+                <span class="label">Favoritos</span>
+                <span class="count">{{ countFavorites }}</span>
+            </button>
+
+            <button class="tab-btn completed" [class.active]="selectedCategory === 'completed'"
+                (click)="selectCategory('completed')">
+                <span class="label">Terminados</span>
+                <span class="count">{{ countCompleted }}</span>
+            </button>
+
+            <button class="tab-btn dropped" [class.active]="selectedCategory === 'dropped'"
+                (click)="selectCategory('dropped')">
+                <span class="label">Pausados</span>
+                <span class="count">{{ countDropped }}</span>
+            </button>
+
+        </div>
+    </header>
+
+    <div class="results-area">
+
+        <div *ngIf="filteredAnimes.length === 0" class="empty-state">
+            <i class="fa-regular fa-folder-open"></i>
+            <p>No hay animes en esta lista aún.</p>
+        </div>
+
+        <div class="anime-grid">
+            <div class="anime-card" *ngFor="let anime of filteredAnimes" [style.--card-color]="anime.cardColor">
+
+                <div class="image-wrapper">
+                    <img [src]="anime.image" [alt]="anime.title">
+                    <div class="score-badge">★ {{ anime.score }}</div>
+                </div>
+
+                <div class="card-content">
+                    <h3>{{ anime.title }}</h3>
+                    <div class="meta-info">
+                        <span class="episode-tag">
+                            <i class="fa-solid fa-play"></i> {{ anime.episodes }}
+                        </span>
+                        <button class="edit-btn"><i class="fa-solid fa-pen"></i></button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>

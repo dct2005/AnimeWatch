@@ -1,0 +1,104 @@
+/* --- VARIABLES (Si no las tienes ya en styles.css) --- */
+:root {
+    --nav-bg: rgba(22, 33, 62, 0.85);
+    /* Fondo oscuro semitransparente */
+    --neon-cyan: #00fff0;
+    --neon-pink: #ff00cc;
+    --text-white: #ffffff;
+}
+
+/* --- CONTENEDOR PRINCIPAL --- */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    /* Logo a un lado, links al otro */
+    align-items: center;
+    padding: 15px 40px;
+    position: sticky;
+    /* Se queda pegado arriba */
+    top: 0;
+    z-index: 1000;
+    /* Siempre por encima del contenido */
+
+    /* Efecto Cristal (Glassmorphism) */
+    background: var(--nav-bg);
+    backdrop-filter: blur(12px);
+    /* Desenfoca lo que pasa por detrás */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* --- LOGO --- */
+.nav-brand img {
+    height: 45px;
+    /* Ajusta según tu logo */
+    width: auto;
+    border-radius: 50%;
+    /* Opcional: si el logo es cuadrado lo hace redondo */
+    border: 2px solid var(--neon-cyan);
+    /* Borde neón para el logo */
+    box-shadow: 0 0 10px rgba(0, 255, 240, 0.4);
+    transition: transform 0.3s ease;
+    display: block;
+}
+
+.nav-brand img:hover {
+    transform: rotate(5deg) scale(1.1);
+    /* Pequeña animación al pasar el mouse */
+}
+
+/* --- CONTENEDOR DE ENLACES --- */
+.nav-links-container {
+    display: flex;
+    gap: 15px;
+    /* Espacio entre los botones */
+    align-items: center;
+}
+
+/* --- ENLACES INDIVIDUALES --- */
+.nav-item a {
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.7);
+    /* Blanco un poco apagado por defecto */
+    font-family: 'Fredoka', sans-serif;
+    /* La fuente que usamos antes */
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 10px 20px;
+    border-radius: 25px;
+    /* Forma de píldora */
+    transition: all 0.3s ease;
+    position: relative;
+    letter-spacing: 0.5px;
+}
+
+/* --- EFECTO HOVER (Brillo Cían) --- */
+.nav-item a:hover {
+    color: var(--text-white);
+    background: rgba(0, 255, 240, 0.15);
+    /* Fondo cian muy suave */
+    box-shadow: 0 0 15px rgba(0, 255, 240, 0.4);
+    /* Resplandor */
+    transform: translateY(-2px);
+}
+
+/* --- LINK ACTIVO (Cuando estás en esa página) --- */
+/* Angular añade la clase 'active' automáticamente con routerLinkActive */
+.nav-item a.active {
+    color: var(--text-white);
+    background: linear-gradient(90deg, var(--neon-pink), #bf00ff);
+    /* Gradiente Rosa/Morado */
+    box-shadow: 0 0 20px rgba(255, 0, 204, 0.6);
+}
+
+/* --- RESPONSIVE (Móviles) --- */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 15px 20px;
+    }
+
+    .nav-item a {
+        padding: 8px 12px;
+        font-size: 0.9rem;
+    }
+}

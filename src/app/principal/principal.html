@@ -1,0 +1,107 @@
+<div class="main-container">
+
+    <div class="hero-grid">
+
+        <div class="card colorful-card">
+            <div class="content-wrapper">
+                <span class="eyebrow">✨ Tu Hub Personalizado</span>
+                <h1>Descubre animes en tiempo real</h1>
+                <p class="description">
+                    Conecta con el catálogo más vibrante. Filtra por temporadas y mantén tu lista actualizada.
+                </p>
+
+                <div class="stats-container">
+                    <div *ngFor="let stat of stats" class="stat-box" [ngClass]="stat.class">
+                        <span class="number">{{ stat.number }}</span>
+                        <span class="label">{{ stat.label }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card search-card">
+            <div class="search-header">
+                <h3>Busca un título</h3>
+                <span class="badge">Filtro Activo</span>
+            </div>
+
+            <div class="input-group">
+                <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                <input type="text" placeholder="Ej: Chainsaw Man...">
+            </div>
+
+            <div class="tags-cloud">
+                <span>#Acción</span>
+                <span>#Romance</span>
+                <span>#Isekai</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-container">
+
+        <div class="hero-grid">
+        </div>
+
+        <div class="section-header">
+            <h2 class="section-title">🔥 Top Tendencias</h2>
+            <span class="scroll-hint"><i class="fa-solid fa-arrow-right-long"></i> Desliza para ver más</span>
+        </div>
+
+        <div class="horizontal-scroll-container">
+            @for (anime of animetop; track $index) {
+            <a [routerLink]="['/anime',anime.mal_id]">
+                <div class="anime-card" [style.--card-color]="anime.color">
+                    <div class="rating">{{ anime.rating }}</div>
+                    <img [src]="anime.images.jpg.image_url" [alt]="anime.title">
+                    <div class="card-info">
+                        <h4>{{ anime.title }}</h4>
+
+                        <span class="genre">{{ anime.genre }}</span>
+                    </div>
+                </div>
+            </a>
+
+            }
+        </div>
+
+        <div class="section-header">
+            <h2 class="section-title">🔥 Temporada actual</h2>
+            <span class="scroll-hint"><i class="fa-solid fa-arrow-right-long"></i> Desliza para ver más</span>
+        </div>
+        <div class="horizontal-scroll-container">
+            @for (anime of animeactu; track $index) {
+            <a [routerLink]="['/anime',anime.mal_id]">
+                <div class="anime-card" [style.--card-color]="anime.color">
+                    <div class="rating">{{ anime.rating }}</div>
+                    <img [src]="anime.images.jpg.image_url" [alt]="anime.title">
+                    <div class="card-info">
+                        <h4>{{ anime.title }}</h4>
+                        <span class="genre">{{ anime.genre }}</span>
+                    </div>
+                </div>
+            </a>
+
+            }
+        </div>
+        <div class="section-header">
+            <h2 class="section-title">🔥 Proximamente</h2>
+            <span class="scroll-hint"><i class="fa-solid fa-arrow-right-long"></i> Desliza para ver más</span>
+        </div>
+        <div class="horizontal-scroll-container">
+            @for (anime of animeprox; track $index) {
+            <a [routerLink]="['/anime',anime.mal_id]">
+                <div class="anime-card" [style.--card-color]="anime.color">
+                    <div class="rating">{{ anime.rating }}</div>
+                    <img [src]="anime.images.jpg.image_url" [alt]="anime.title">
+                    <div class="card-info">
+                        <h4>{{ anime.title }}</h4>
+                        <span class="genre">{{ anime.genre }}</span>
+                    </div>
+                </div>
+            </a>
+
+            }
+        </div>
+
+    </div>
