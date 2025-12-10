@@ -10,7 +10,8 @@ import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angula
 })
 export class Buscador {
   searchForm: FormGroup;
-
+  animelist: any[] = [];
+  loadingList: boolean = false;
   // Opciones para los selectores
   types = [
     { value: '', label: 'Cualquiera' },
@@ -38,14 +39,27 @@ export class Buscador {
 
   onSubmit() {
     if (this.searchForm.valid) {
-      const filters = this.searchForm.value;
-      console.log('Buscando con filtros:', filters);
-      // Aquí llamarías a tu servicio: this.animeService.search(filters)...
+      const nombre = this.searchForm.get('name')?.value;
+      const tipo = this.searchForm.get('type')?.value
+      const status = this.searchForm.get('status')?.value
+      this.loadanimetop(nombre, tipo, status)
     } else {
       this.searchForm.markAllAsTouched();
     }
   }
+  async loadanimetop(nombre: string, tipo: string, status: string): Promise<void> {
+    this.loadingList = true;
 
+
+
+    const response = await fetch(`https://api.jikan.moe/v4/anime?q=${nombre}&type=${tipo}&status=${status}`);
+    if (!response.ok) throw new Error('Error al cargar la lista');
+
+    const Data: any = await response.json();
+    this.animelist = Object.values(Data.data);
+
+
+  }
   // Helper para limpiar el formulario
   resetForm() {
     this.searchForm.reset({ type: '', status: '' });

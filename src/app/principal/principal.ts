@@ -20,7 +20,7 @@ interface Anime {
 export class Principal {
 
   loadingList: boolean = false;
-  animeList: Anime[] = []
+
   animetop: any[] = [];
   animeactu: any[] = [];
   animeprox: any[] = [];
