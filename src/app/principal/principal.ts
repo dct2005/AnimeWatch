@@ -1,18 +1,18 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common'; // Necesario si usas Standalone Components
+import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
-// Interfaz para definir la estructura de un Anime
+
 interface Anime {
   title: string;
   genre: string;
   rating: number;
   image: string;
-  color: string; // El color neón específico
+  color: string;
 }
 
 @Component({
   selector: 'app-principal',
-  standalone: true, // Si usas módulos, quita esto y 'imports'
+  standalone: true,
   imports: [CommonModule, RouterLink],
   templateUrl: './principal.html',
   styleUrls: ['./principal.css']
@@ -30,7 +30,38 @@ export class Principal {
     this.loadanimeactu();
     this.loadanimeprox();
   }
+  agregarAFavoritos(anime: any, event: Event) {
 
+    event.stopPropagation();
+    event.preventDefault();
+
+
+    const listaActual = JSON.parse(localStorage.getItem('myAnimeList') || '[]');
+
+
+    const yaExiste = listaActual.some((a: any) => a.id === anime.mal_id);
+
+    if (yaExiste) {
+      alert(`⚠️ ${anime.title} ya está en tu lista.`);
+      return;
+    }
+
+
+    const nuevoItem = {
+      id: anime.mal_id,
+      title: anime.title,
+      image: anime.images.jpg.image_url,
+      score: anime.score,
+      episodes: anime.episodes,
+
+    };
+
+
+    listaActual.push(nuevoItem);
+    localStorage.setItem('myAnimeList', JSON.stringify(listaActual));
+
+    alert(` ¡${anime.title} añadido a favoritos!`);
+  }
 
   async loadanimetop(): Promise<void> {
     this.loadingList = true;

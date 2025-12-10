@@ -1,64 +1,53 @@
-<div class="list-container">
+<div class="favs-container">
 
-    <header class="list-header">
-        <h1 class="page-title">Mi Colección</h1>
+    <div class="page-header">
+        <h1><i class="fa-solid fa-heart"></i> Mis Favoritos</h1>
+        <p>Tu colección personal de animes guardados.</p>
+        <div class="divider"></div>
+    </div>
 
-        <div class="category-tabs">
+    @if (loading) {
+    <div class="loading-state">
+        <div class="spinner"></div>
+        <p>Recuperando tu colección...</p>
+    </div>
+    }
 
-            <button class="tab-btn watching" [class.active]="selectedCategory === 'watching'"
-                (click)="selectCategory('watching')">
-                <span class="label">Viendo</span>
-                <span class="count">{{ countWatching }}</span>
-            </button>
+    @if (!loading && favoritos.length === 0) {
+    <div class="empty-state">
+        <i class="fa-regular fa-folder-open empty-icon"></i>
+        <h3>Tu lista está vacía</h3>
+        <p>Ve al buscador o a inicio para añadir animes aquí.</p>
+        <a routerLink="/" class="go-home-btn">Ir a explorar</a>
+    </div>
+    }
 
-            <button class="tab-btn favorites" [class.active]="selectedCategory === 'favorites'"
-                (click)="selectCategory('favorites')">
-                <span class="label">Favoritos</span>
-                <span class="count">{{ countFavorites }}</span>
-            </button>
+    @if (!loading && favoritos.length > 0) {
+    <div class="anime-grid">
+        @for (anime of favoritos; track $index) {
 
-            <button class="tab-btn completed" [class.active]="selectedCategory === 'completed'"
-                (click)="selectCategory('completed')">
-                <span class="label">Terminados</span>
-                <span class="count">{{ countCompleted }}</span>
-            </button>
+        <a [routerLink]="['/anime', anime.id]" class="card-link">
+            <div class="anime-card" [style.--card-color]="anime.color">
 
-            <button class="tab-btn dropped" [class.active]="selectedCategory === 'dropped'"
-                (click)="selectCategory('dropped')">
-                <span class="label">Pausados</span>
-                <span class="count">{{ countDropped }}</span>
-            </button>
+                <div class="rating">★ {{ anime.score || 'N/A' }}</div>
 
-        </div>
-    </header>
+                <button class="delete-btn" (click)="eliminarDeLista(anime.id, $event)">
+                    <i class="fa-solid fa-trash"></i>
+                </button>
 
-    <div class="results-area">
+                <img [src]="anime.image" [alt]="anime.title">
 
-        <div *ngIf="filteredAnimes.length === 0" class="empty-state">
-            <i class="fa-regular fa-folder-open"></i>
-            <p>No hay animes en esta lista aún.</p>
-        </div>
-
-        <div class="anime-grid">
-            <div class="anime-card" *ngFor="let anime of filteredAnimes" [style.--card-color]="anime.cardColor">
-
-                <div class="image-wrapper">
-                    <img [src]="anime.image" [alt]="anime.title">
-                    <div class="score-badge">★ {{ anime.score }}</div>
-                </div>
-
-                <div class="card-content">
-                    <h3>{{ anime.title }}</h3>
-                    <div class="meta-info">
-                        <span class="episode-tag">
-                            <i class="fa-solid fa-play"></i> {{ anime.episodes }}
-                        </span>
-                        <button class="edit-btn"><i class="fa-solid fa-pen"></i></button>
+                <div class="card-info">
+                    <h4>{{ anime.title }}</h4>
+                    <div class="meta">
+                        <span class="episodes"><i class="fa-solid fa-tv"></i> {{ anime.episodes || '?' }} Eps</span>
                     </div>
                 </div>
-
             </div>
-        </div>
+        </a>
+
+        }
     </div>
+    }
 
 </div>

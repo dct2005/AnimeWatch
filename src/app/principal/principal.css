@@ -399,6 +399,47 @@
     z-index: 2;
 }
 
+/* Botón flotante de Favoritos */
+.fav-btn {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    /* A la izquierda para no tapar el rating */
+    z-index: 5;
+    /* Por encima de la imagen */
+
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    border: none;
+
+    background: rgba(0, 0, 0, 0.6);
+    /* Fondo semitransparente */
+    color: #fff;
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    /* Efecto rebote suave */
+}
+
+/* Efecto al pasar el mouse */
+.fav-btn:hover {
+    background: #ff0055;
+    /* Rosa neón */
+    color: white;
+    transform: scale(1.2);
+    /* Crece un poco */
+    box-shadow: 0 0 15px #ff0055;
+}
+
+/* Efecto al hacer clic (activo) */
+.fav-btn:active {
+    transform: scale(0.9);
+}
+
 /* --- RESPONSIVE --- */
 @media (max-width: 768px) {
     .anime-card {

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 interface Anime {
   id: number;
   title: string;
@@ -12,36 +13,55 @@ interface Anime {
 @Component({
   selector: 'app-favs',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './favs.html',
   styleUrl: './favs.css',
 })
 export class Favs {
-  selectedCategory: string = 'watching';
+  favoritos: any[] = [];
+  loading: boolean = true;
 
-  // Base de datos simulada (Aquí cargarías desde tu servicio)
-  allAnimes: Anime[] = [
-    { id: 1, title: 'Chainsaw Man', image: 'https://picsum.photos/300/400?random=1', status: 'watching', episodes: '8/12', score: 9.5, cardColor: '#FF0055' },
-    { id: 2, title: 'Spy x Family', image: 'https://picsum.photos/300/400?random=2', status: 'favorites', episodes: 'Al día', score: 9.8, cardColor: '#00E5FF' },
-    { id: 3, title: 'One Piece', image: 'https://picsum.photos/300/400?random=3', status: 'watching', episodes: '1070/?', score: 9.2, cardColor: '#76FF03' },
-    { id: 4, title: 'Naruto', image: 'https://picsum.photos/300/400?random=4', status: 'completed', episodes: 'Completo', score: 8.5, cardColor: '#FFD600' },
-    { id: 5, title: 'Bleach', image: 'https://picsum.photos/300/400?random=5', status: 'completed', episodes: 'Completo', score: 9.0, cardColor: '#D500F9' },
-    { id: 6, title: 'Tokyo Ghoul', image: 'https://picsum.photos/300/400?random=6', status: 'dropped', episodes: 'Temp 2', score: 6.5, cardColor: '#ff00cc' },
-  ];
+  // Colores neón aleatorios para decoración si no se guardó el color
+  neonColors = ['#FF0055', '#00E5FF', '#76FF03', '#FFD600', '#D500F9'];
 
-  // Métodos para obtener conteos dinámicos
-  get countWatching() { return this.allAnimes.filter(a => a.status === 'watching').length; }
-  get countFavorites() { return this.allAnimes.filter(a => a.status === 'favorites').length; }
-  get countCompleted() { return this.allAnimes.filter(a => a.status === 'completed').length; }
-  get countDropped() { return this.allAnimes.filter(a => a.status === 'dropped').length; }
-
-  // Obtener la lista filtrada para mostrar en el HTML
-  get filteredAnimes() {
-    return this.allAnimes.filter(anime => anime.status === this.selectedCategory);
+  ngOnInit(): void {
+    this.cargarFavoritos();
   }
 
-  // Función para cambiar de pestaña
-  selectCategory(category: string) {
-    this.selectedCategory = category;
+  cargarFavoritos() {
+    this.loading = true;
+
+    // 1. Leemos del LocalStorage
+    const data = localStorage.getItem('myAnimeList');
+
+    if (data) {
+      // 2. Parseamos el JSON
+      this.favoritos = JSON.parse(data);
+
+      // (Opcional) Aseguramos que tengan color para el diseño neón
+      this.favoritos = this.favoritos.map(anime => ({
+        ...anime,
+        // Si no guardamos el color antes, le ponemos uno ahora
+        color: anime.color || this.neonColors[Math.floor(Math.random() * this.neonColors.length)]
+      }));
+    } else {
+      this.favoritos = [];
+    }
+
+    this.loading = false;
+  }
+
+  eliminarDeLista(id: number, event: Event) {
+    // Evitamos que el click navegue al detalle del anime
+    event.stopPropagation();
+    event.preventDefault();
+
+    if (confirm('¿Seguro que quieres eliminar este anime de favoritos?')) {
+      // Filtramos la lista para quitar el ID seleccionado
+      this.favoritos = this.favoritos.filter(anime => anime.id !== id);
+
+      // Guardamos la nueva lista en LocalStorage
+      localStorage.setItem('myAnimeList', JSON.stringify(this.favoritos));
+    }
   }
 }

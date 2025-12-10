@@ -1,231 +1,202 @@
-/* --- VARIABLES LOCALES --- */
 :root {
-    --neon-blue: #00E5FF;
-    --neon-pink: #FF0055;
-    --neon-green: #76FF03;
-    --neon-purple: #D500F9;
-    --glass-bg: rgba(255, 255, 255, 0.05);
+    --neon-cyan: #00fff0;
+    --neon-pink: #ff00cc;
+    --neon-red: #ff3333;
+    --bg-dark: #1e1b36;
 }
 
-.list-container {
-    width: 100%;
+.favs-container {
     max-width: 1200px;
+    width: 100%;
     margin: 0 auto;
-    padding-bottom: 50px;
+    padding: 40px 20px;
+    min-height: 80vh;
 }
 
 /* --- CABECERA --- */
-.list-header {
-    margin-bottom: 40px;
+.page-header {
     text-align: center;
+    margin-bottom: 50px;
 }
 
-.page-title {
+.page-header h1 {
     font-family: 'Fredoka', sans-serif;
     font-size: 2.5rem;
-    margin-bottom: 30px;
-    background: linear-gradient(to right, #fff, #a1a1a1);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: white;
+    margin-bottom: 10px;
+    text-shadow: 0 0 10px rgba(255, 0, 204, 0.3);
 }
 
-/* --- PESTAÑAS / BOTONES (Tabs) --- */
-.category-tabs {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    flex-wrap: wrap;
-    /* Para que se adapte a móviles */
+.page-header h1 i {
+    color: var(--neon-pink);
 }
 
-.tab-btn {
-    background: var(--glass-bg);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    color: rgba(255, 255, 255, 0.6);
-    padding: 12px 25px;
-    border-radius: 20px;
-    cursor: pointer;
-    font-family: 'Nunito', sans-serif;
-    font-size: 1rem;
-    font-weight: 700;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    min-width: 140px;
-    justify-content: space-between;
+.page-header p {
+    color: #b3b3b3;
+    font-size: 1.1rem;
 }
 
-.tab-btn .count {
-    background: rgba(0, 0, 0, 0.3);
-    padding: 2px 8px;
-    border-radius: 10px;
-    font-size: 0.8rem;
+.divider {
+    height: 3px;
+    width: 100px;
+    background: linear-gradient(90deg, var(--neon-cyan), var(--neon-pink));
+    margin: 20px auto;
+    border-radius: 2px;
 }
 
-/* Efectos Hover */
-.tab-btn:hover {
-    background: rgba(255, 255, 255, 0.1);
-    transform: translateY(-3px);
-}
-
-/* --- ESTADOS ACTIVOS (NEÓN) --- */
-/* Cada botón tiene su color al activarse */
-
-/* Viendo: Azul */
-.tab-btn.watching.active {
-    background: var(--neon-blue);
-    color: #000;
-    box-shadow: 0 0 20px rgba(0, 229, 255, 0.4);
-    border-color: var(--neon-blue);
-}
-
-/* Favoritos: Rosa */
-.tab-btn.favorites.active {
-    background: var(--neon-pink);
-    color: #fff;
-    box-shadow: 0 0 20px rgba(255, 0, 85, 0.4);
-    border-color: var(--neon-pink);
-}
-
-/* Completados: Verde */
-.tab-btn.completed.active {
-    background: var(--neon-green);
-    color: #000;
-    box-shadow: 0 0 20px rgba(118, 255, 3, 0.4);
-    border-color: var(--neon-green);
-}
-
-/* Pausados: Morado */
-.tab-btn.dropped.active {
-    background: var(--neon-purple);
-    color: #fff;
-    box-shadow: 0 0 20px rgba(213, 0, 249, 0.4);
-    border-color: var(--neon-purple);
-}
-
-/* --- GRID DE RESULTADOS --- */
+/* --- GRID DE ANIMES --- */
 .anime-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 30px;
 }
 
-/* Tarjeta individual (similar a home pero con ajustes) */
+.card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
 .anime-card {
-    background: #1e1b36;
+    background: var(--bg-dark);
     border-radius: 20px;
     overflow: hidden;
     position: relative;
     transition: transform 0.3s ease;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    /* Borde neón inferior */
-    box-shadow: 0 4px 0 var(--card-color);
+    border-bottom: 4px solid var(--card-color, var(--neon-cyan));
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    height: 100%;
 }
 
 .anime-card:hover {
     transform: translateY(-10px);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3), 0 4px 0 var(--card-color);
+    box-shadow: 0 15px 30px var(--card-color, var(--neon-cyan));
 }
 
-.image-wrapper {
-    position: relative;
-    height: 280px;
-    overflow: hidden;
-}
-
-.image-wrapper img {
+.anime-card img {
     width: 100%;
-    height: 100%;
+    height: 280px;
     object-fit: cover;
-    transition: transform 0.5s ease;
 }
 
-.anime-card:hover img {
-    transform: scale(1.1);
+/* --- ELEMENTOS FLOTANTES --- */
+.rating {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: rgba(0, 0, 0, 0.8);
+    color: #ffd700;
+    padding: 5px 10px;
+    border-radius: 10px;
+    font-weight: 800;
+    font-size: 0.8rem;
+    z-index: 2;
 }
 
-/* Puntuación flotante */
-.score-badge {
+/* Botón de Eliminar */
+.delete-btn {
     position: absolute;
     top: 10px;
     right: 10px;
-    background: rgba(0, 0, 0, 0.8);
-    color: var(--card-color);
-    font-weight: 800;
-    padding: 4px 8px;
-    border-radius: 8px;
-    font-size: 0.85rem;
-    border: 1px solid var(--card-color);
+    background: rgba(0, 0, 0, 0.6);
+    color: #ff5555;
+    /* Rojo suave */
+    border: 2px solid #ff5555;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 5;
+    /* Por encima de todo */
+    transition: 0.3s;
 }
 
-.card-content {
+.delete-btn:hover {
+    background: var(--neon-red);
+    color: white;
+    border-color: var(--neon-red);
+    transform: scale(1.1) rotate(10deg);
+    box-shadow: 0 0 15px var(--neon-red);
+}
+
+/* Info Card */
+.card-info {
     padding: 15px;
 }
 
-.card-content h3 {
+.card-info h4 {
+    color: white;
     font-family: 'Fredoka', sans-serif;
-    font-size: 1.1rem;
+    margin: 0 0 5px 0;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    margin-bottom: 10px;
-    color: white;
 }
 
-.meta-info {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.episode-tag {
+.meta {
+    color: #888;
     font-size: 0.85rem;
-    color: #b3b3b3;
-    display: flex;
-    align-items: center;
-    gap: 5px;
 }
 
-.edit-btn {
-    background: transparent;
-    border: none;
-    color: #5d5d7d;
-    cursor: pointer;
-    font-size: 1rem;
-    transition: color 0.2s;
-}
-
-.edit-btn:hover {
-    color: white;
-}
-
-/* Estado Vacío */
-.empty-state {
+/* --- ESTADOS VACÍO Y CARGANDO --- */
+.empty-state,
+.loading-state {
     text-align: center;
-    padding: 50px;
-    color: rgba(255, 255, 255, 0.3);
+    padding: 60px 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 30px;
+    border: 1px dashed rgba(255, 255, 255, 0.2);
 }
 
-.empty-state i {
-    font-size: 3rem;
-    margin-bottom: 15px;
+.empty-icon {
+    font-size: 4rem;
+    color: #555;
+    margin-bottom: 20px;
 }
 
-/* RESPONSIVE */
-@media (max-width: 600px) {
-    .anime-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 15px;
-    }
+.empty-state h3 {
+    color: white;
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1.5rem;
+}
 
-    .category-tabs {
-        gap: 10px;
-    }
+.empty-state p {
+    color: #aaa;
+    margin-bottom: 25px;
+}
 
-    .tab-btn {
-        flex: 1 1 40%;
-        /* Botones más anchos en móvil */
-        font-size: 0.9rem;
+.go-home-btn {
+    display: inline-block;
+    background: var(--neon-cyan);
+    color: #000;
+    padding: 10px 25px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-weight: 700;
+    transition: 0.3s;
+}
+
+.go-home-btn:hover {
+    box-shadow: 0 0 15px var(--neon-cyan);
+    transform: scale(1.05);
+}
+
+/* Spinner */
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(255, 255, 255, 0.1);
+    border-left-color: var(--neon-pink);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 15px;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
     }
 }

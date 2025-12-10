@@ -47,13 +47,20 @@
             @for (anime of animetop; track $index) {
             <a [routerLink]="['/anime',anime.mal_id]">
                 <div class="anime-card" [style.--card-color]="anime.color">
+
                     <div class="rating">{{ anime.rating }}</div>
+
+                    <button class="fav-btn" (click)="agregarAFavoritos(anime, $event)">
+                        <i class="fa-solid fa-heart"></i>
+                    </button>
+
                     <img [src]="anime.images.jpg.image_url" [alt]="anime.title">
+
                     <div class="card-info">
                         <h4>{{ anime.title }}</h4>
-
                         <span class="genre">{{ anime.genre }}</span>
                     </div>
+
                 </div>
             </a>
 
@@ -68,12 +75,20 @@
             @for (anime of animeactu; track $index) {
             <a [routerLink]="['/anime',anime.mal_id]">
                 <div class="anime-card" [style.--card-color]="anime.color">
+
                     <div class="rating">{{ anime.rating }}</div>
+
+                    <button class="fav-btn" (click)="agregarAFavoritos(anime, $event)">
+                        <i class="fa-solid fa-heart"></i>
+                    </button>
+
                     <img [src]="anime.images.jpg.image_url" [alt]="anime.title">
+
                     <div class="card-info">
                         <h4>{{ anime.title }}</h4>
                         <span class="genre">{{ anime.genre }}</span>
                     </div>
+
                 </div>
             </a>
 
@@ -87,12 +102,20 @@
             @for (anime of animeprox; track $index) {
             <a [routerLink]="['/anime',anime.mal_id]">
                 <div class="anime-card" [style.--card-color]="anime.color">
+
                     <div class="rating">{{ anime.rating }}</div>
+
+                    <button class="fav-btn" (click)="agregarAFavoritos(anime, $event)">
+                        <i class="fa-solid fa-heart"></i>
+                    </button>
+
                     <img [src]="anime.images.jpg.image_url" [alt]="anime.title">
+
                     <div class="card-info">
                         <h4>{{ anime.title }}</h4>
                         <span class="genre">{{ anime.genre }}</span>
                     </div>
+
                 </div>
             </a>
 
