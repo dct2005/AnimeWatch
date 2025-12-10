@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-buscador',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink],
   templateUrl: './buscador.html',
   styleUrl: './buscador.css',
 })
@@ -52,7 +53,7 @@ export class Buscador {
 
 
 
-    const response = await fetch(`https://api.jikan.moe/v4/anime?q=${nombre}&type=${tipo}&status=${status}`);
+    const response = await fetch(`https://api.jikan.moe/v4/anime?q=${nombre}&type=${tipo}&status=${status}&limit=20`);
     if (!response.ok) throw new Error('Error al cargar la lista');
 
     const Data: any = await response.json();

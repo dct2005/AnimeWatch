@@ -1,0 +1,111 @@
+@if (anime) {
+<div class="details-page">
+
+    <img class="backdrop" [src]="anime.images.jpg.image_url" [alt]=" anime.title">
+    <div class="backdrop-overlay"></div>
+
+    <div class="container glass-container">
+
+        <a routerLink="/" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Volver</a>
+
+        <div class="content-grid">
+
+            <div class="poster-column">
+                <div class="poster-wrapper">
+                    <img [src]="anime.images.jpg.large_image_url" [alt]="anime.title">
+                    <div class="score-tag">
+                        <i class="fa-solid fa-star"></i> {{ anime.score || 'N/A' }}
+                    </div>
+                </div>
+
+                <button class="add-btn" [class.added]="agregado" [disabled]="agregado">
+                    <i class="fa-solid" [class.fa-check]="agregado" [class.fa-plus]="!agregado"></i>
+                    {{ agregado ? 'En tu lista' : 'Añadir a mi lista' }}
+                </button>
+            </div>
+
+            <div class="info-column">
+
+                <h1 class="anime-title">{{ anime.title }}</h1>
+                <h2 class="anime-subtitle">{{ anime.title }}</h2>
+
+                <div class="tags-row">
+                    <span class="tag type">{{ anime.type }}</span>
+                    <span class="tag status">{{ anime.status }}</span>
+                    <span class="tag eps">{{ anime.episodes || '?' }} Episodios</span>
+                    <span class="tag rating">{{ anime.rating }}</span>
+                </div>
+
+                <div class="section synopsis">
+                    <h3>Sinopsis</h3>
+                    <p>{{ anime.synopsis }}</p>
+                </div>
+
+                <div class="tech-grid">
+                    <div class="tech-item">
+                        <span class="label">Año</span>
+                        <span class="value">{{ anime.year || 'Desc' }}</span>
+                    </div>
+                    <div class="tech-item">
+                        <span class="label">Estudio</span>
+                        <span class="value">{{ anime.studios[0]?.name || 'N/A' }}</span>
+                    </div>
+                    <div class="tech-item">
+                        <span class="label">Duración</span>
+                        <span class="value">{{ anime.duration }}</span>
+                    </div>
+                </div>
+
+                <div class="bottom-grid">
+
+                    <div class="section episodes-section">
+                        <h3><i class="fa-solid fa-layer-group"></i> Episodios</h3>
+
+                        <div class="episodes-scroll">
+                            @if (episodes.length === 0) {
+                            <div class="empty-msg">No hay episodios.</div>
+                            }
+                            @for (ep of episodes; track $index) {
+                            <div class="episode-card">
+                                <div class="ep-number">
+                                    <span>EP</span>
+                                    <strong>{{ ep.mal_id }}</strong>
+                                </div>
+                                <div class="ep-details">
+                                    <span class="ep-title">{{ ep.title }}</span>
+                                    <span class="ep-date">
+                                        <i class="fa-regular fa-calendar"></i> {{ ep.aired | date:'shortDate' }}
+                                    </span>
+                                </div>
+                                <div class="play-icon">
+                                    <i class="fa-solid fa-play"></i>
+                                </div>
+                            </div>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="section reviews-section">
+                        <h3><i class="fa-regular fa-comments"></i> Reseñas</h3>
+
+                        <div class="reviews-scroll">
+                            @if (reviews.length === 0) {
+                            <div class="empty-msg">Sin reseñas aún.</div>
+                            }
+                            @for (review of reviews; track $index) {
+                            <div class="review-card">
+
+                                <p class="review-text">{{ review?.review }}</p>
+                            </div>
+                            }
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+}

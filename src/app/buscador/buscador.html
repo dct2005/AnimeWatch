@@ -7,7 +7,6 @@
         </div>
 
         <form [formGroup]="searchForm" (ngSubmit)="onSubmit()" class="cyber-form">
-
             <div class="form-group full-width">
                 <label for="name">Nombre del Anime</label>
                 <div class="input-wrapper">
@@ -23,7 +22,6 @@
             </div>
 
             <div class="filters-grid">
-
                 <div class="form-group">
                     <label for="type">Tipo</label>
                     <div class="select-wrapper">
@@ -47,20 +45,43 @@
                         <i class="fa-solid fa-chevron-down arrow-icon"></i>
                     </div>
                 </div>
-
             </div>
 
             <div class="actions">
                 <button type="button" class="reset-btn" (click)="resetForm()">
                     Limpiar
                 </button>
-
                 <button type="submit" class="search-btn" [disabled]="searchForm.invalid">
                     Buscar <i class="fa-solid fa-arrow-right"></i>
                 </button>
             </div>
-
         </form>
     </div>
+
+    @if (animelist.length > 0) {
+    <div class="results-section">
+
+        <div class="section-header">
+            <h2 class="section-title">Resultados de búsqueda</h2>
+        </div>
+
+        <div class="anime-grid">
+            @for (anime of animelist; track $index) {
+            <a [routerLink]="['/anime', anime.mal_id]">
+                <div class="anime-card" [style.--card-color]="anime.color">
+                    <div class="rating">{{ anime.ratingFormatted || anime.rating }}</div>
+                    <img [src]="anime.images.jpg.image_url" [alt]="anime.title">
+                    <div class="card-info">
+                        <h4>{{ anime.title }}</h4>
+                        <span class="genre">{{ anime.genre }}</span>
+                    </div>
+                </div>
+            </a>
+            }
+        </div>
+    </div>
+    }
+
+
 
 </div>

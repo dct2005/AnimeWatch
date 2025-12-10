@@ -10,12 +10,24 @@
 }
 
 .search-container {
-    width: 100%;
-    min-height: 80vh; /* Centrado vertical */
     display: flex;
-    justify-content: center;
-    align-items: flex-start; /* Alineado arriba con un poco de margen */
-    padding-top: 40px;
+    flex-direction: column;
+    /* <--- ESTO ES LO IMPORTANTE: Pone los elementos uno debajo del otro */
+    align-items: center;
+    /* Centra el formulario y el grid en el medio de la pantalla */
+    width: 100%;
+    min-height: 100vh;
+    padding: 40px 20px;
+    /* Añade espacio arriba y a los lados */
+    gap: 40px;
+    /* Espacio automático entre el formulario y los resultados */
+}
+
+/* Asegúrate también de tener esto para la sección de resultados */
+.results-section {
+    width: 100%;
+    max-width: 1200px;
+    /* Para que el grid no se estire infinito en pantallas grandes */
 }
 
 /* --- TARJETA DE CRISTAL --- */
@@ -25,9 +37,10 @@
     border-radius: 30px;
     padding: 40px;
     width: 100%;
-    max-width: 600px; /* Ancho máximo del formulario */
+    max-width: 600px;
+    /* Ancho máximo del formulario */
     border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
     position: relative;
     overflow: hidden;
 }
@@ -78,11 +91,13 @@
 }
 
 /* --- INPUTS Y SELECTS --- */
-.input-wrapper, .select-wrapper {
+.input-wrapper,
+.select-wrapper {
     position: relative;
 }
 
-input, select {
+input,
+select {
     width: 100%;
     background: var(--bg-input);
     border: 2px solid transparent;
@@ -93,11 +108,15 @@ input, select {
     font-size: 1rem;
     outline: none;
     transition: all 0.3s ease;
-    appearance: none; /* Quita estilo por defecto del navegador */
+    appearance: none;
+    /* Quita estilo por defecto del navegador */
 }
 
 /* Iconos dentro de los inputs */
-.input-wrapper input { padding-left: 45px; }
+.input-wrapper input {
+    padding-left: 45px;
+}
+
 .input-wrapper .icon {
     position: absolute;
     left: 15px;
@@ -117,7 +136,8 @@ input, select {
 }
 
 /* --- ESTADOS INTERACTIVOS (NEÓN) --- */
-input:focus, select:focus {
+input:focus,
+select:focus {
     border-color: var(--neon-cyan);
     box-shadow: 0 0 15px rgba(0, 255, 240, 0.25);
     background: #362f5e;
@@ -139,15 +159,26 @@ input.invalid {
 }
 
 @keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-5px); }
-    75% { transform: translateX(5px); }
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-5px);
+    }
+
+    75% {
+        transform: translateX(5px);
+    }
 }
 
 /* --- GRID DE FILTROS --- */
 .filters-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr; /* Dos columnas iguales */
+    grid-template-columns: 1fr 1fr;
+    /* Dos columnas iguales */
     gap: 20px;
 }
 
@@ -159,7 +190,8 @@ input.invalid {
 }
 
 .search-btn {
-    flex: 2; /* Ocupa más espacio */
+    flex: 2;
+    /* Ocupa más espacio */
     background: linear-gradient(135deg, var(--neon-purple), var(--neon-pink));
     color: white;
     border: none;
@@ -186,6 +218,127 @@ input.invalid {
     background: #555;
 }
 
+/* --- 1. CONFIGURACIÓN DEL GRID PADRE (Importante) --- */
+/* Asegúrate de que el contenedor que rodea tu @for tenga esta clase o estilos similares */
+.anime-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 25px;
+    width: 100%;
+    /* Asegura que ocupe el ancho */
+    margin-top: 20px;
+}
+
+/* --- 2. ESTILO DEL ENLACE WRAPPER (<a>) --- */
+/* Esto es crucial porque tu tarjeta está dentro de un <a> */
+.anime-grid a {
+    text-decoration: none;
+    /* Quita el subrayado azul feo */
+    color: inherit;
+    /* Hereda el color de texto */
+    display: block;
+    /* Para que respete márgenes y tamaños */
+    height: 100%;
+    /* Para que todas las tarjetas en una fila tengan la misma altura */
+}
+
+/* --- 3. TARJETA PRINCIPAL (.anime-card) --- */
+.anime-card {
+    background: #1e1b36;
+    /* Fondo oscuro morado */
+    border-radius: 20px;
+    overflow: hidden;
+    /* Para que la imagen no se salga de las curvas */
+    position: relative;
+    /* Necesario para posicionar el rating absoluto */
+    height: 100%;
+    /* Ocupa todo el alto del enlace */
+    display: flex;
+    flex-direction: column;
+    /* Organiza imagen arriba y texto abajo */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    /* EL BORDE NEÓN: Usa la variable que pasaste en el HTML */
+    border-bottom: 4px solid var(--card-color, #fff);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Efecto al pasar el mouse por encima */
+.anime-card:hover {
+    transform: translateY(-8px);
+    /* La tarjeta flota hacia arriba */
+    /* Resplandor del color específico de la tarjeta */
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4), 0 0 15px var(--card-color);
+}
+
+/* --- 4. IMAGEN --- */
+.anime-card img {
+    width: 100%;
+    height: 280px;
+    /* Altura fija para que todas se vean iguales */
+    object-fit: cover;
+    /* Recorta la imagen para llenar el espacio sin deformar */
+    transition: transform 0.5s ease;
+}
+
+/* Zoom suave en la imagen al hacer hover en la tarjeta */
+.anime-card:hover img {
+    transform: scale(1.05);
+}
+
+/* --- 5. RATING (Puntuación flotante) --- */
+.rating {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(0, 0, 0, 0.85);
+    /* Fondo negro semi-transparente */
+
+    /* Texto y borde del color neón de la tarjeta */
+    color: var(--card-color);
+    border: 1px solid var(--card-color);
+
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-weight: 800;
+    font-size: 0.85rem;
+    z-index: 2;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+/* --- 6. INFORMACIÓN (Texto abajo) --- */
+.card-info {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 1;
+    /* Empuja el contenido para llenar espacio si sobra */
+}
+
+.card-info h4 {
+    margin: 0 0 8px 0;
+    color: #ffffff;
+    font-family: 'Fredoka', sans-serif;
+    /* O tu fuente preferida */
+    font-size: 1.1rem;
+    font-weight: 600;
+    line-height: 1.3;
+
+    /* Cortar título con "..." si es muy largo (máximo 2 líneas) */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.card-info .genre {
+    color: #b3b3b3;
+    /* Gris claro */
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
 .reset-btn {
     flex: 1;
     background: transparent;
@@ -201,15 +354,16 @@ input.invalid {
 .reset-btn:hover {
     border-color: var(--text-white);
     color: var(--text-white);
-    background: rgba(255,255,255,0.05);
+    background: rgba(255, 255, 255, 0.05);
 }
 
 /* --- RESPONSIVE --- */
 @media (max-width: 600px) {
     .filters-grid {
-        grid-template-columns: 1fr; /* Una columna en móviles */
+        grid-template-columns: 1fr;
+        /* Una columna en móviles */
     }
-    
+
     .glass-panel {
         padding: 25px;
     }

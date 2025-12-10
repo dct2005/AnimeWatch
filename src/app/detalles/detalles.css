@@ -1,0 +1,473 @@
+:root {
+    --neon-cyan: #00fff0;
+    --neon-pink: #ff00cc;
+    --neon-purple: #9D00FF;
+}
+
+.details-page {
+    position: relative;
+    min-height: 100vh;
+    padding: 40px 20px;
+    display: flex;
+    justify-content: center;
+}
+
+/* --- FONDO AMBIENTAL --- */
+.backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    filter: blur(20px) brightness(0.4);
+    z-index: -2;
+}
+
+.backdrop-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(15, 12, 41, 0.6), #0f0c29);
+    z-index: -1;
+}
+
+/* --- CONTENEDOR PRINCIPAL (CRISTAL) --- */
+.glass-container {
+    background: rgba(30, 27, 54, 0.7);
+    backdrop-filter: blur(15px);
+    border-radius: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    max-width: 1100px;
+    width: 100%;
+    padding: 40px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+}
+
+.back-btn {
+    color: #b3b3b3;
+    text-decoration: none;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 30px;
+    transition: 0.3s;
+}
+
+.back-btn:hover {
+    color: var(--neon-cyan);
+    transform: translateX(-5px);
+}
+
+/* --- LAYOUT GRID SUPERIOR --- */
+.content-grid {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 40px;
+}
+
+/* --- COLUMNA IZQUIERDA --- */
+.poster-wrapper {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.poster-wrapper img {
+    width: 100%;
+    display: block;
+}
+
+.score-tag {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: var(--neon-purple);
+    color: white;
+    font-weight: 900;
+    padding: 5px 10px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px var(--neon-purple);
+}
+
+/* Botón Añadir */
+.add-btn {
+    width: 100%;
+    margin-top: 20px;
+    padding: 15px;
+    border: none;
+    border-radius: 15px;
+    background: linear-gradient(135deg, var(--neon-cyan), #0099ff);
+    color: #000;
+    font-weight: 800;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.3s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.add-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 20px rgba(0, 255, 240, 0.4);
+}
+
+.add-btn.added {
+    background: #2ecc71;
+    color: white;
+    cursor: default;
+    box-shadow: none;
+}
+
+/* --- COLUMNA DERECHA --- */
+.anime-title {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 2.5rem;
+    line-height: 1.1;
+    margin-bottom: 5px;
+    color: white;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+}
+
+.anime-subtitle {
+    font-size: 1.2rem;
+    color: #b3b3b3;
+    margin-bottom: 20px;
+    font-weight: 400;
+}
+
+/* Tags */
+.tags-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.tag {
+    padding: 5px 12px;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.tag.type {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+.tag.status {
+    background: rgba(0, 255, 240, 0.15);
+    color: var(--neon-cyan);
+    border: 1px solid var(--neon-cyan);
+}
+
+.tag.eps {
+    background: rgba(255, 0, 204, 0.15);
+    color: var(--neon-pink);
+    border: 1px solid var(--neon-pink);
+}
+
+.tag.rating {
+    background: #333;
+    color: #ccc;
+}
+
+/* Sinopsis */
+.section h3 {
+    color: var(--neon-cyan);
+    margin-bottom: 10px;
+    font-family: 'Fredoka', sans-serif;
+}
+
+.synopsis p {
+    color: #ddd;
+    line-height: 1.7;
+    margin-bottom: 30px;
+    font-size: 1rem;
+}
+
+/* Tech Grid */
+.tech-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-bottom: 40px;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 15px;
+    border-radius: 15px;
+}
+
+.tech-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.tech-item .label {
+    font-size: 0.75rem;
+    color: #888;
+    text-transform: uppercase;
+}
+
+.tech-item .value {
+    font-size: 1rem;
+    color: white;
+    font-weight: 600;
+}
+
+/* --- ESTILOS DE EPISODIOS (Movidos fuera de la media query) --- */
+.episodes-section {
+    margin-bottom: 0;
+    /* Ajuste para grid */
+}
+
+/* --- LAYOUT GRID INFERIOR (2 Columnas) --- */
+.bottom-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    /* 50% y 50% */
+    gap: 30px;
+    margin-top: 40px;
+}
+
+/* Ajuste de los títulos de sección inferior */
+.section h3 {
+    font-family: 'Fredoka', sans-serif;
+    color: white;
+    margin-bottom: 20px;
+    font-size: 1.3rem;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 10px;
+}
+
+.episodes-container {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 15px;
+    padding: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Areas con scroll */
+.episodes-scroll,
+.reviews-scroll {
+    max-height: 400px;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+/* Scrollbars */
+.episodes-scroll::-webkit-scrollbar,
+.reviews-scroll::-webkit-scrollbar {
+    width: 6px;
+}
+
+.episodes-scroll::-webkit-scrollbar-track,
+.reviews-scroll::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+}
+
+.episodes-scroll::-webkit-scrollbar-thumb,
+.reviews-scroll::-webkit-scrollbar-thumb {
+    background: var(--neon-cyan);
+    border-radius: 10px;
+}
+
+/* Tarjetas de Episodios */
+.episode-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    padding: 15px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+    cursor: pointer;
+}
+
+.episode-card:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateX(5px);
+    border-color: var(--neon-cyan);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.ep-number {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 10px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 50px;
+    color: var(--neon-cyan);
+}
+
+.ep-number span {
+    font-size: 0.6rem;
+    font-weight: 700;
+    opacity: 0.8;
+}
+
+.ep-number strong {
+    font-size: 1.2rem;
+    font-weight: 800;
+    line-height: 1;
+}
+
+.ep-details {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.ep-title {
+    color: white;
+    font-weight: 600;
+    font-size: 0.95rem;
+    line-height: 1.2;
+}
+
+.ep-date {
+    font-size: 0.8rem;
+    color: #888;
+}
+
+.play-icon {
+    color: #444;
+    transition: 0.3s;
+}
+
+.episode-card:hover .play-icon {
+    color: var(--neon-cyan);
+    transform: scale(1.2);
+}
+
+/* Estilos de Reseñas */
+.reviews-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.review-card {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 15px;
+    border-radius: 15px;
+    border-left: 4px solid var(--neon-pink);
+    margin-bottom: 15px;
+    /* Separación entre reseñas */
+}
+
+.review-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.review-header img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+
+.username {
+    color: var(--neon-cyan);
+    font-weight: 700;
+    font-size: 0.9rem;
+}
+
+.review-score {
+    margin-left: auto;
+    font-weight: 800;
+    color: #f1c40f;
+}
+
+.review-text {
+    font-size: 0.9rem;
+    color: #ccc;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.no-reviews,
+.empty-msg {
+    color: #666;
+    font-style: italic;
+    text-align: center;
+    padding: 20px;
+}
+
+/* Loading */
+.loading-screen {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid rgba(255, 255, 255, 0.1);
+    border-top-color: var(--neon-cyan);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 20px;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+/* --- RESPONSIVE (SOLO PARA MÓVILES) --- */
+@media (max-width: 768px) {
+    .content-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .poster-wrapper {
+        width: 200px;
+        margin: 0 auto;
+    }
+
+    .anime-title {
+        font-size: 2rem;
+        text-align: center;
+    }
+
+    .anime-subtitle {
+        text-align: center;
+    }
+
+    .tags-row {
+        justify-content: center;
+    }
+
+    /* Aquí cambiamos el grid inferior a 1 columna en móvil */
+    .bottom-grid {
+        grid-template-columns: 1fr;
+    }
+}
