@@ -1,1 +1,60 @@
-<p>buscador works!</p>
+<div class="search-container">
+
+    <div class="glass-panel">
+        <div class="panel-header">
+            <h2><i class="fa-solid fa-magnifying-glass"></i> Explorador</h2>
+            <p>Filtra el catálogo para encontrar tu próxima obsesión.</p>
+        </div>
+
+        <form [formGroup]="searchForm" (ngSubmit)="onSubmit()" class="cyber-form">
+
+            <div class="form-group full-width">
+                <label for="name">Nombre del Anime</label>
+                <div class="input-wrapper">
+                    <i class="fa-solid fa-signature icon"></i>
+                    <input type="text" id="name" formControlName="name" placeholder="Ej: Jujutsu Kaisen..."
+                        [class.invalid]="searchForm.get('name')?.invalid && searchForm.get('name')?.touched">
+                </div>
+                <div class="error-msg" *ngIf="searchForm.get('name')?.hasError('minlength')">
+                    <i class="fa-solid fa-circle-exclamation"></i> Escribe al menos 3 caracteres.
+                </div>
+            </div>
+
+            <div class="filters-grid">
+
+                <div class="form-group">
+                    <label for="type">Tipo</label>
+                    <div class="select-wrapper">
+                        <select id="type" formControlName="type">
+                            <option *ngFor="let t of types" [value]="t.value">{{ t.label }}</option>
+                        </select>
+                        <i class="fa-solid fa-chevron-down arrow-icon"></i>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="status">Estado</label>
+                    <div class="select-wrapper">
+                        <select id="status" formControlName="status">
+                            <option *ngFor="let s of statuses" [value]="s.value">{{ s.label }}</option>
+                        </select>
+                        <i class="fa-solid fa-chevron-down arrow-icon"></i>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="actions">
+                <button type="button" class="reset-btn" (click)="resetForm()">
+                    Limpiar
+                </button>
+
+                <button type="submit" class="search-btn" [disabled]="searchForm.invalid">
+                    Buscar <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </div>
+
+        </form>
+    </div>
+
+</div>
